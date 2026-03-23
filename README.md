@@ -1,4 +1,3 @@
-test
 # NanoGraph
 
 **A knowledge graph in pure Python. No libraries. No magic. Under 200 lines.**
