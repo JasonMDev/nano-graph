@@ -31,7 +31,7 @@ A knowledge graph built from `(subject, predicate, object)` triples is the simpl
 No dependencies. Requires Python 3.10+.
 
 ```bash
-git clone https://github.com/jasonmdev/nano-graph.git
+git clone https://github.com/JasonMDev/nano-graph.git
 cd nano-graph
 python test_nanograph.py   # runs the unit tests
 python demo.py        # runs the demo
