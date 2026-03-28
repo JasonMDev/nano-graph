@@ -118,4 +118,4 @@ Follow along: [your LinkedIn / newsletter link]
 
 ## Licence
 
-MIT — see `LICENSE`
+MIT — see `LICENSE [https://github.com/JasonMDev/nano-graph/blob/main/LICENSE]`
