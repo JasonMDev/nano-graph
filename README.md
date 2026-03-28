@@ -50,12 +50,12 @@ Expected output from the demo includes:
 
 
 ### File Tree Structure
-nano-graph/
-├── nanograph.py
-├── demo.py
-├── test_nanograph.py
-├── README.md
-├── LICENSE
+nano-graph/<br>
+├── nanograph.py<br>
+├── demo.py<br>
+├── test_nanograph.py<br>
+├── README.md<br>
+├── LICENSE<br>
 
 
 ### Files Description
