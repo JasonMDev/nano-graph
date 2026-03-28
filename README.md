@@ -112,10 +112,10 @@ This sprint is part of an ongoing public portfolio exploring knowledge graphs, i
 
 The through-line: building infrastructure that can tell the difference between a confident assertion and a verified fact.
 
-Follow along: [your LinkedIn / newsletter link]
+Follow along: [newsletter link](https://duckduckgo.com)
 
 ---
 
 ## Licence
 
-MIT — see `LICENSE [https://github.com/JasonMDev/nano-graph/blob/main/LICENSE]`
+MIT — see `[LICENSE](https://github.com/JasonMDev/nano-graph/blob/main/LICENSE)` 
