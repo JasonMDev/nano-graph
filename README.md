@@ -118,4 +118,4 @@ Follow along: [newsletter link](https://duckduckgo.com)
 
 ## Licence
 
-MIT — see `[LICENSE](https://github.com/JasonMDev/nano-graph/blob/main/LICENSE)` 
+MIT — see ['LICENSE'](https://github.com/JasonMDev/nano-graph/blob/main/LICENSE)
