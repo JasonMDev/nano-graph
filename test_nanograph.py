@@ -91,12 +91,6 @@ def section(title: str) -> None:
     print(f"{'─' * 60}")
     print(f"\n")
 
-def footer(title: str) -> None:
-    print(f"\n{'─' * 60}")
-    print(f"  {title}")
-    print(f"{'─' * 60}")
-    print(f"\n")
-
 # ─────────────────────────────────────────────────────────────────────────────
 # TEST SUITE - Main Function
 # ─────────────────────────────────────────────────────────────────────────────
