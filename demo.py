@@ -14,7 +14,7 @@ Demonstrates what falls out of (subject, predicate, object) for free.
 # IMPORTS
 # ─────────────────────────────────────────────────────────────────────────────
 
-# TODO: Add imports here
+from nanograph import NanoGraph
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DATA - Triples
@@ -72,15 +72,41 @@ def section(title: str) -> None:
     print(f"  {title}")
     print(f"{'─' * 60}")
 
+# ── Build Graph ──────────────────────────────────────────────────────────────
+
+def build_graph() -> NanoGraph:
+    g = NanoGraph()
+    for s, p, o in TRIPLES:
+        g.add_triple(s, p, o)
+    return g
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # DEMO - Main Function
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
 
+    # ── 0. Display Triples Data ──────────────────────────────────────────────
     section("DISPLAY TRIPLES")
     displayTriples(TRIPLES)
 
+    # ── 1. Load Triples into Grapg Object ────────────────────────────────────
+    section("LOAD GRAPHS")
+    g = build_graph()
+    print(f"\nLoaded: {g}")
+    print(f"Predicates in use: {sorted(g.predicate_types())}")
+
+    # ── 2. BFS vs DFS from socrates ──────────────────────────────────────────
+
+
+    # ── 3. Path finding ──────────────────────────────────────────────────────
+
+
+    # ── 4. Contested concepts ────────────────────────────────────────────────
+
+
+    # ── 5. Cycle detection ───────────────────────────────────────────────────
 
 
 # ─────────────────────────────────────────────────────────────────────────────

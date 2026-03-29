@@ -49,27 +49,21 @@ class TestNanoGraph(unittest.TestCase):
 
     # ── Query ─────────────────────────────────────────────────────────────────
 
-    def query(
-        self,
-        subject: Optional[str] = None,
-        predicate: Optional[str] = None,
-        obj: Optional[str] = None,
-    ) -> list[tuple[str, str, str]]:
-        """
-        Pattern match against the triple store.
-        None acts as a wildcard.
-        e.g. query(predicate="manages") returns all management triples.
-        """
-        return [
-            (s, p, o) for s, p, o in self._triples
-            if (subject is None or s == subject)
-            and (predicate is None or p == predicate)
-            and (obj is None or o == obj)
-        ]
+    def test_query_predicate_wildcard(self):
+        results = self.g.query(predicate="has_feature")
+        self.assertEqual(len(results), 3)
 
-    def neighbours(self, node: str) -> list[str]:
-        """All nodes directly reachable from this node (any predicate)."""
-        return self._adjacency.get(node, [])
+    def test_query_subject_and_predicate(self):
+        results = self.g.query(subject="model_s", predicate="has_feature")
+        self.assertEqual(len(results), 2)
+
+    def test_query_object_wildcard(self):
+        results = self.g.query(obj="autopilot")
+        self.assertEqual(len(results), 2)
+
+    def test_query_no_match_returns_empty(self):
+        results = self.g.query(subject="model_3", predicate="manufactures")
+        self.assertEqual(results, [])
 
     # ── Traversal ─────────────────────────────────────────────────────────────
 
