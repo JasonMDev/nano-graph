@@ -27,8 +27,9 @@ class TestNanoGraph(unittest.TestCase):
     def setUp(self):
         self.g = NanoGraph()
         self.g.add_triple("tesla", "manufactures", "model_s")
-        self.g.add_triple("model_s", "has_feature", "autopilot")
+        self.g.add_triple("tesla", "manufactures", "model_3")
         self.g.add_triple("tesla", "has_ceo", "elon_musk")
+        self.g.add_triple("model_s", "has_feature", "autopilot")
         self.g.add_triple("model_s", "has_feature", "supercharging")
         self.g.add_triple("model_3", "has_feature", "autopilot")
 
@@ -38,7 +39,7 @@ class TestNanoGraph(unittest.TestCase):
         self.assertEqual(self.g.node_count, 6)  # tesla, model_s, model_3, autopilot, elon_musk, supercharging
 
     def test_triple_count(self):
-        self.assertEqual(self.g.triple_count, 5)
+        self.assertEqual(self.g.triple_count, 6)
 
     def test_duplicate_triple_raises(self):
         with self.assertRaises(ValueError):
@@ -66,6 +67,30 @@ class TestNanoGraph(unittest.TestCase):
         self.assertEqual(results, [])
 
     # ── Traversal ─────────────────────────────────────────────────────────────
+
+    def test_bfs_starts_at_root(self):
+        order = self.g.bfs("tesla")
+        self.assertEqual(order[0], "tesla")
+
+    def test_bfs_closer_nodes_first(self):
+        order = self.g.bfs("tesla")
+        # tesla is one hop from model_s; autopilot is two — model_s must appear first
+        self.assertLess(order.index("model_s"), order.index("autopilot"))
+
+    def test_dfs_starts_at_root(self):
+        order = self.g.dfs("tesla")
+        self.assertEqual(order[0], "tesla")
+
+    def test_dfs_follows_depth_first(self):
+        order = self.g.dfs("tesla")
+        # DFS follows "manufactures" predicate chain: tesla → model_s → model_3 before backtracking to skills
+        self.assertLess(order.index("model_s"), order.index("model_3"))
+
+    def test_bfs_unknown_node_returns_empty(self):
+        self.assertEqual(self.g.bfs("nobody"), [])
+
+    def test_dfs_unknown_node_returns_empty(self):
+        self.assertEqual(self.g.dfs("nobody"), [])
 
     # ── Path finding ──────────────────────────────────────────────────────────
 

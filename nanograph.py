@@ -69,6 +69,94 @@ class NanoGraph:
 
     # ── Traversal ─────────────────────────────────────────────────────────────
 
+    def bfs(self, start: str) -> list[str]:
+        """
+        Breadth-first traversal from start.
+        Visits closest nodes first — answers "what is near this node?"
+        """
+        if start not in self._nodes:
+            return []
+        visited, queue, order = set(), deque([start]), []
+        while queue:
+            node = queue.popleft()
+            if node in visited:
+                continue
+            visited.add(node)
+            order.append(node)
+            for neighbour in self._adjacency.get(node, []):
+                if neighbour not in visited:
+                    queue.append(neighbour)
+        return order
+
+    def dfs(self, start: str) -> list[str]:
+        """
+        Depth-first traversal from start.
+        Follows each branch to its end — answers "how far does this go?"
+        """
+        if start not in self._nodes:
+            return []
+        visited, order = set(), []
+
+        def _visit(node: str) -> None:
+            if node in visited:
+                return
+            visited.add(node)
+            order.append(node)
+            for neighbour in self._adjacency.get(node, []):
+                _visit(neighbour)
+
+        _visit(start)
+        return order
+
+    def find_paths(self, start: str, end: str, max_depth: int = 6) -> list[list[str]]:
+        """
+        Find all paths between start and end nodes.
+        Returns a list of paths, each path a list of node ids.
+        """
+        if start not in self._nodes or end not in self._nodes:
+            return []
+        paths: list[list[str]] = []
+
+        def _search(current: str, path: list[str], depth: int) -> None:
+            if depth > max_depth:
+                return
+            if current == end:
+                paths.append(list(path))
+                return
+            for neighbour in self._adjacency.get(current, []):
+                if neighbour not in path:
+                    path.append(neighbour)
+                    _search(neighbour, path, depth + 1)
+                    path.pop()
+
+        _search(start, [start], 0)
+        return paths
+
+    def has_cycle(self) -> bool:
+        """
+        Detect whether the graph contains a cycle.
+        Uses three-colour DFS: white (unvisited), grey (in progress), black (done).
+        A grey neighbour means we've found a back edge — a cycle.
+        """
+        WHITE, GREY, BLACK = 0, 1, 2
+        colour = {node: WHITE for node in self._nodes}
+
+        def _dfs(node: str) -> bool:
+            colour[node] = GREY
+            for neighbour in self._adjacency.get(node, []):
+                if colour[neighbour] == GREY:
+                    return True
+                if colour[neighbour] == WHITE and _dfs(neighbour):
+                    return True
+            colour[node] = BLACK
+            return False
+
+        return any(
+            _dfs(node)
+            for node in self._nodes
+            if colour[node] == WHITE
+        )
+
     # ── Introspection ─────────────────────────────────────────────────────────
 
     @property

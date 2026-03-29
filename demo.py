@@ -99,6 +99,18 @@ def main():
 
     # ── 2. BFS vs DFS from socrates ──────────────────────────────────────────
 
+    section("BFS from socrates  — breadth first: who is nearest?")
+    print(g.bfs("socrates"))
+
+    section("DFS from socrates  — depth first: how far does this go?")
+    print(g.dfs("socrates"))
+
+    print("""
+          BFS surfaces plato first, then aristotle — proximity in the tradition.
+          DFS immediately follows the chain to its end: socrates → plato → aristotle
+          → kant → hegel → marx, then backtracks to explore nietzsche and heidegger.
+          Same graph. Same data. Different questions about intellectual descent.
+      """)
 
     # ── 3. Path finding ──────────────────────────────────────────────────────
 
