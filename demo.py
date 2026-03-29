@@ -85,16 +85,19 @@ def build_graph() -> NanoGraph:
 def main():
 
     # ── 0. Display Triples Data ──────────────────────────────────────────────
+
     section("DISPLAY TRIPLES")
     displayTriples(TRIPLES)
 
     # ── 1. Load Triples into Grapg Object ────────────────────────────────────
+
     section("LOAD GRAPHS")
     g = build_graph()
     print(f"\nLoaded: {g}")
     print(f"Predicates in use: {sorted(g.predicate_types())}")
 
     # ── 2. BFS vs DFS from socrates ──────────────────────────────────────────
+
     section("BFS from socrates  — breadth first: who is nearest?")
     print(g.bfs("socrates"))
 
@@ -109,6 +112,7 @@ def main():
         """)
 
     # ── 3. Path finding ──────────────────────────────────────────────────────
+
     section("Paths: socrates → existentialism")
     paths = g.find_paths("socrates", "existentialism", max_depth=8)
     if paths:
@@ -125,9 +129,46 @@ def main():
 
     # ── 4. Contested concepts ────────────────────────────────────────────────
 
+    section("Query: what concepts were developed?")
+    for s, _, o in g.query(predicate="developed"):
+        print(f"  {s} → {o}")
+
+    section("Query: what concepts were critiqued?")
+    for s, _, o in g.query(predicate="critiqued"):
+        print(f"  {s} critiqued {o}")
+
+    section("Contested concepts: developed by one thinker, critiqued by another")
+    developed_concepts = {o for _, _, o in g.query(predicate="developed")}
+    critiqued_concepts = {o for _, _, o in g.query(predicate="critiqued")}
+    contested = sorted(developed_concepts & critiqued_concepts)
+    for concept in contested:
+        developer = [s for s, _, o in g.query(predicate="developed", obj=concept)]
+        critic    = [s for s, _, o in g.query(predicate="critiqued", obj=concept)]
+        print(f"  {concept}: developed by {developer}, critiqued by {critic}")
+
+    print("""
+            Nobody labelled these concepts as contested.
+            The label emerged from the intersection of two query results.
+            This is inference from structure alone — no rules engine required.
+        """)
 
     # ── 5. Cycle detection ───────────────────────────────────────────────────
 
+    section("Cycle detection — is the graph consistent?")
+    print(f"  has_cycle(): {g.has_cycle()}")
+
+    print("\n  Now adding: the_forms inspired plato")
+    print("  (Plato developed the_forms AND was shaped by them — a philosophical chicken-and-egg)")
+    g.add_triple("the_forms", "inspired", "plato")
+    print(f"  has_cycle(): {g.has_cycle()}")
+
+    print("""
+            Plato developed the theory of forms.
+            But was he also shaped by an intuition of the forms before he theorised them?
+            The moment you represent that, the graph becomes cyclic.
+            The cycle detector is not just a graph algorithm — it is a consistency check
+            on whether your knowledge representation can handle this kind of claim.
+        """)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DEMO - Main Conditional Block Checking 

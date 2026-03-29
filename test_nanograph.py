@@ -110,6 +110,12 @@ class TestNanoGraph(unittest.TestCase):
 
     # ── Cycle detection ───────────────────────────────────────────────────────
 
+    def test_no_cycle_in_clean_graph(self):
+        self.assertFalse(self.g.has_cycle())
+
+    def test_cycle_detected(self):
+        self.g.add_triple("supercharging", "added_by", "tesla")  # closes the loop
+        self.assertTrue(self.g.has_cycle())
 
 
 # ─────────────────────────────────────────────────────────────────────────────
