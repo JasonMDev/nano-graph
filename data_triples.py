@@ -49,21 +49,9 @@ TRIPLES = [
 
     # Teaching relationships
     ("socrates",     "taught",      "plato"),
-    ("plato",        "taught",      "aristotle"),
-    ("hegel",        "taught",      "marx"),
-    ("husserl",      "taught",      "heidegger"),
-    ("heidegger",    "taught",      "arendt"),
-    ("sartre",       "taught",      "beauvoir"),
-    ("russell",      "taught",      "wittgenstein"),
 
     # Opposition between thinkers
-    ("marx",         "opposed",     "hegel"),
-    ("nietzsche",    "opposed",     "socrates"),
     ("sartre",       "opposed",     "camus"),
-    ("russell",      "opposed",     "heidegger"),
-    ("popper",       "opposed",     "marx"),
-    ("camus",        "opposed",     "marx"),
-    ("derrida",      "opposed",     "russell"),
 
     # School of thought membership
     ("plato",        "belongs_to",  "idealism"),
@@ -92,4 +80,5 @@ TRIPLES = [
     ("derrida",      "wrote",       "of_grammatology"),
     ("russell",      "wrote",       "principia_mathematica"),
     ("beauvoir",     "wrote",       "the_second_sex"),
+
 ]

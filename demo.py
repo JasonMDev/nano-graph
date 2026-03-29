@@ -79,7 +79,7 @@ def main():
     # ── 3. Path finding ──────────────────────────────────────────────────────
 
     section("Paths: socrates → existentialism")
-    paths = g.find_paths("socrates", "dialectic", max_depth=8)
+    paths = g.find_paths("socrates", "existentialism", max_depth=8)
     if paths:
         for path in paths:
             print("  " + " → ".join(path))
@@ -120,12 +120,21 @@ def main():
     # ── 5. Cycle detection ───────────────────────────────────────────────────
 
     section("Cycle detection — is the graph consistent?")
-    print(f"  has_cycle(): {g.has_cycle()}")
+
+    print("\n  Checking if a cycle exist")
+    if g.has_cycle():
+        print("  Graph contains a cycle!")
+    else:
+        print("  Graph is acyclic (DAG - Directed Acyclic Graph)")
 
     print("\n  Now adding: the_forms inspired plato")
     print("  (Plato developed the_forms AND was shaped by them — a philosophical chicken-and-egg)")
     g.add_triple("the_forms", "inspired", "plato")
-    print(f"  has_cycle(): {g.has_cycle()}")
+
+    if g.has_cycle():
+        print("  Graph contains a cycle after addition!")
+    else:
+        print("  Graph is acyclic (DAG - Directed Acyclic Graph)")
 
     print("""
             Plato developed the theory of forms.

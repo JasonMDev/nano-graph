@@ -130,7 +130,11 @@ class NanoGraph:
                     path.pop()
 
         _search(start, [start], 0)
-        return paths
+
+        unique_paths = list(set(tuple(p) for p in paths))
+        unique_paths = [list(p) for p in unique_paths]
+
+        return unique_paths
 
     def has_cycle(self) -> bool:
         """
