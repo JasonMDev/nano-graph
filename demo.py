@@ -15,42 +15,7 @@ Demonstrates what falls out of (subject, predicate, object) for free.
 # ─────────────────────────────────────────────────────────────────────────────
 
 from nanograph import NanoGraph
-
-# ─────────────────────────────────────────────────────────────────────────────
-# DATA - Triples
-# ─────────────────────────────────────────────────────────────────────────────
-
-TRIPLES = [
-    # Lines of influence between thinkers
-    ("socrates",     "influenced",  "plato"),
-    ("plato",        "influenced",  "aristotle"),
-    ("aristotle",    "influenced",  "kant"),
-    ("kant",         "influenced",  "hegel"),
-    ("kant",         "influenced",  "wittgenstein"),
-    ("hegel",        "influenced",  "marx"),
-    ("hegel",        "influenced",  "nietzsche"),
-    ("hegel",        "influenced",  "heidegger"),
-    ("nietzsche",    "influenced",  "heidegger"),
-    ("heidegger",    "influenced",  "sartre"),
-
-    # Concepts each thinker developed
-    ("plato",        "developed",   "the_forms"),
-    ("plato",        "developed",   "logos"),
-    ("kant",         "developed",   "categorical_imperative"),
-    ("hegel",        "developed",   "dialectic"),
-    ("hegel",        "developed",   "idealism"),
-    ("marx",         "developed",   "materialism"),
-    ("nietzsche",    "developed",   "will_to_power"),
-    ("wittgenstein", "developed",   "language_games"),
-    ("heidegger",    "developed",   "being"),
-    ("sartre",       "developed",   "existentialism"),
-
-    # Concepts each thinker critiqued
-    ("aristotle",    "critiqued",   "the_forms"),
-    ("marx",         "critiqued",   "idealism"),
-    ("nietzsche",    "critiqued",   "categorical_imperative"),
-    ("wittgenstein", "critiqued",   "logos"),
-]
+from data_triples import TRIPLES
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DEMO - Utility Functions
@@ -114,7 +79,7 @@ def main():
     # ── 3. Path finding ──────────────────────────────────────────────────────
 
     section("Paths: socrates → existentialism")
-    paths = g.find_paths("socrates", "existentialism", max_depth=8)
+    paths = g.find_paths("socrates", "dialectic", max_depth=8)
     if paths:
         for path in paths:
             print("  " + " → ".join(path))
