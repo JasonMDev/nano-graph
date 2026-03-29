@@ -57,7 +57,6 @@ TRIPLES = [
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Display Triples ──────────────────────────────────────────────────────────
-
 def displayTriples(TRIPLES: list) -> None:
     print(f"{'Subject':<15} {'Predicate':<15} {'Object':<30}")
     print("-" * 60)
@@ -66,14 +65,12 @@ def displayTriples(TRIPLES: list) -> None:
 
 
 # ── Create sections ──────────────────────────────────────────────────────────
-
 def section(title: str) -> None:
     print(f"\n{'─' * 60}")
     print(f"  {title}")
     print(f"{'─' * 60}")
 
 # ── Build Graph ──────────────────────────────────────────────────────────────
-
 def build_graph() -> NanoGraph:
     g = NanoGraph()
     for s, p, o in TRIPLES:
@@ -98,7 +95,6 @@ def main():
     print(f"Predicates in use: {sorted(g.predicate_types())}")
 
     # ── 2. BFS vs DFS from socrates ──────────────────────────────────────────
-
     section("BFS from socrates  — breadth first: who is nearest?")
     print(g.bfs("socrates"))
 
@@ -106,14 +102,26 @@ def main():
     print(g.dfs("socrates"))
 
     print("""
-          BFS surfaces plato first, then aristotle — proximity in the tradition.
-          DFS immediately follows the chain to its end: socrates → plato → aristotle
-          → kant → hegel → marx, then backtracks to explore nietzsche and heidegger.
-          Same graph. Same data. Different questions about intellectual descent.
-      """)
+            BFS surfaces plato first, then aristotle — proximity in the tradition.
+            DFS immediately follows the chain to its end: socrates → plato → aristotle
+            → kant → hegel → marx, then backtracks to explore nietzsche and heidegger.
+            Same graph. Same data. Different questions about intellectual descent.
+        """)
 
     # ── 3. Path finding ──────────────────────────────────────────────────────
+    section("Paths: socrates → existentialism")
+    paths = g.find_paths("socrates", "existentialism", max_depth=8)
+    if paths:
+        for path in paths:
+            print("  " + " → ".join(path))
+    else:
+        print("  No path found.")
 
+    print("""
+            Nobody stated that Socrates led to existentialism.
+            The graph derived it from the chain of influence and development.
+            There are multiple routes — each is a different intellectual lineage.
+        """)
 
     # ── 4. Contested concepts ────────────────────────────────────────────────
 

@@ -94,6 +94,20 @@ class TestNanoGraph(unittest.TestCase):
 
     # ── Path finding ──────────────────────────────────────────────────────────
 
+    def test_find_paths_direct(self):
+        paths = self.g.find_paths("tesla", "supercharging")
+        self.assertEqual(len(paths), 1)
+        self.assertEqual(paths[0], ["tesla", "model_s", "supercharging"])
+
+    def test_find_paths_no_route(self):
+        # supercharging has no outgoing edges — no path back to tesla
+        paths = self.g.find_paths("supercharging", "tesla")
+        self.assertEqual(paths, [])
+
+    def test_find_paths_unknown_nodes(self):
+        paths = self.g.find_paths("nobody", "tesla")
+        self.assertEqual(paths, [])
+
     # ── Cycle detection ───────────────────────────────────────────────────────
 
 
