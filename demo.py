@@ -59,10 +59,10 @@ TRIPLES = [
 # ── Display Triples ──────────────────────────────────────────────────────────
 
 def displayTriples(TRIPLES: list) -> None:
-    print(f"{'Subject':<15} {'Predicate':<15} {'Object':<25}")
-    print("-" * 55)
+    print(f"{'Subject':<15} {'Predicate':<15} {'Object':<30}")
+    print("-" * 60)
     for subject, predicate, obj in TRIPLES:
-        print(f"{subject:<15} {predicate:<15} {obj:<25}")
+        print(f"{subject:<15} {predicate:<15} {obj:<30}")
 
 
 # ── Create sections ──────────────────────────────────────────────────────────
